@@ -1,0 +1,34 @@
+.camera-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #121212;
+  color: white;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.webcam-feed {
+  width: 400px;
+  border-radius: 12px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px #00ffe1;
+}
+
+.capture-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #00ffe1;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.result-info {
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: red;
+}
