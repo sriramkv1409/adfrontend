@@ -45,3 +45,27 @@
   align-items: center;
   height: 100vh;
 }
+/* 
+.slideshow-container {
+  position: relative;
+  text-align: center;
+}
+
+.slide-image {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+} */
+
+.qr-image {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 120px;
+  height: 120px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
