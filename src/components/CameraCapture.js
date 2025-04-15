@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
-import Advertisement from "./Advertisement";
+import { useNavigate } from "react-router-dom";
 import "../styles/camera.css";
 
 const CameraCapture = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const [ageGroup, setAgeGroup] = useState(null);
-  const [gender, setGender] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     startCamera();
@@ -33,6 +33,8 @@ const CameraCapture = () => {
       return;
     }
 
+    setIsLoading(true);
+
     const video = videoRef.current;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -44,9 +46,14 @@ const CameraCapture = () => {
     canvas.toBlob((blob) => {
       if (!blob) {
         setError("Failed to capture image.");
+        setIsLoading(false);
         return;
       }
-      const file = new File([blob], "captured_image.jpg", { type: "image/jpeg" });
+
+      const file = new File([blob], "captured_image.jpg", {
+        type: "image/jpeg",
+      });
+
       sendToBackend(file);
     }, "image/jpeg");
   };
@@ -60,17 +67,21 @@ const CameraCapture = () => {
         method: "POST",
         body: formData,
       });
-      const data = await response.json();
 
+      const data = await response.json();
+      console.log(data.age_group,data.gender);
       if (data.error) {
         setError(data.error);
+        setIsLoading(false);
       } else {
-        setAgeGroup(data.age_group);
-        setGender(data.gender);
+        navigate("/ads", {
+          state: { ageGroup: data.age_group, gender: data.gender },
+        });
       }
     } catch (error) {
       console.error("Error sending image:", error);
-      setError("Server error while sending image."); 
+      setError("Server error while sending image.");
+      setIsLoading(false);
     }
   };
 
@@ -87,14 +98,7 @@ const CameraCapture = () => {
         📷 Capture Image
       </button>
 
-      {ageGroup && gender && (
-        <div className="result-info">
-          <p>🧠 Age Group: <strong>{ageGroup}</strong></p>
-          <p>🚻 Gender: <strong>{gender}</strong></p>
-        </div>
-      )}
-
-      {ageGroup && gender && <Advertisement ageGroup={ageGroup} gender={gender} />}
+      {isLoading && <p className="analyzing-text">🔍 Analyzing and fetching your ads...</p>}
     </div>
   );
 };

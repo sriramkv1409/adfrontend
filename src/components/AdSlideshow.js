@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/adslideshow.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const AdSlideshow = () => {
   const [ads, setAds] = useState([]);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const [showFeedback, setShowFeedback] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { ageGroup, gender } = location.state || {};
+
+  // ✅ Replace with your actual QR feedback link
+  const feedbackQRUrl = "https://adgorithmbucket-2025-new.s3.ap-south-1.amazonaws.com/form.png";
 
   useEffect(() => {
     const getAgeRange = (ageGroup) => {
@@ -79,25 +84,53 @@ const AdSlideshow = () => {
   }, [ageGroup, gender]);
 
   useEffect(() => {
+    if (ads.length === 0 || showFeedback) return;
+
     const timer = setInterval(() => {
-      setCurrentAdIndex((prev) => (prev + 1) % ads.length);
+      setCurrentAdIndex((prevIndex) => {
+        if (prevIndex + 1 === ads.length) {
+          setShowFeedback(true); // Show feedback after last ad
+          clearInterval(timer);
+        }
+        return (prevIndex + 1) % ads.length;
+      });
     }, 5000);
+
     return () => clearInterval(timer);
-  }, [ads]);
+  }, [ads, showFeedback]);
+
+  // Redirect to camera page after feedback QR is shown for 10 seconds
+  useEffect(() => {
+    if (showFeedback) {
+      const redirectTimer = setTimeout(() => {
+        navigate('/');
+      }, 10000); // 10 seconds
+      return () => clearTimeout(redirectTimer);
+    }
+  }, [showFeedback, navigate]);
 
   if (ads.length === 0) return <div className="loading-text">Loading ads...</div>;
 
-  const currentAd = ads[currentAdIndex];
-
   return (
     <div className="ad-slideshow">
-      <h1 className="header">WATCH OUT FOR THIS</h1>
+      <h1 className="header">
+        {showFeedback ? "We'd love your feedback!" : "WATCH OUT FOR THIS"}
+      </h1>
       <div className="slideshow-container">
-        <a href={currentAd.link} target="_blank" rel="noopener noreferrer">
-          <img src={currentAd.src} alt={`Ad ${currentAdIndex + 1}`} className="slide-image" />
-        </a>
-        {currentAd.qrSrc && (
-          <img src={currentAd.qrSrc} alt={`QR Code for Ad ${currentAdIndex + 1}`} className="qr-image" />
+        {showFeedback ? (
+          <div className="feedback-container">
+            <img src={feedbackQRUrl} alt="Feedback QR" className="feedback-qr" />
+            <p className="feedback-text">Scan the QR code to share your thoughts!</p>
+          </div>
+        ) : (
+          <>
+            <a href={ads[currentAdIndex].link} target="_blank" rel="noopener noreferrer">
+              <img src={ads[currentAdIndex].src} alt={`Ad ${currentAdIndex + 1}`} className="slide-image" />
+            </a>
+            {ads[currentAdIndex].qrSrc && (
+              <img src={ads[currentAdIndex].qrSrc} alt={`QR for Ad ${currentAdIndex + 1}`} className="qr-image" />
+            )}
+          </>
         )}
       </div>
     </div>
