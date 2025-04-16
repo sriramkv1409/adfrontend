@@ -1,56 +1,56 @@
-.camera-container {
-  text-align: center;
+.camera-page {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  height: calc(100vh - 60px);
+}
+
+.camera-left {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
   padding: 20px;
-  background-color: #121212;
-  color: white;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
 }
 
-.webcam-feed {
-  width: 400px;
-  border-radius: 12px;
-  margin-top: 20px;
-  box-shadow: 0 0 10px #00ffe1;
-}
-
-.capture-btn {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #00ffe1;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.result-info {
-  margin-top: 20px;
-  font-size: 1.2rem;
-}
-
-.error {
-  color: red;
-}
-.loading-spinner {
+.camera-right {
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15px;
+  position: relative;
+}
+
+.webcam-feed {
+  border-radius: 10px;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+}
+
+.spinner-wrapper {
+  margin-top: 20px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 5px solid #ccc;
-  border-top: 5px solid #00fff2;
+  border: 4px solid #333;
+  border-top: 4px solid #00ffcc;
   border-radius: 50%;
+  width: 60px;
+  height: 60px;
   animation: spin 1s linear infinite;
-  margin-bottom: 10px;
+  margin: 0 auto;
+}
+
+.loading-text {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #aaa;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

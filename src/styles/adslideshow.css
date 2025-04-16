@@ -45,7 +45,6 @@
   align-items: center;
   height: 100vh;
 }
-/* 
 .slideshow-container {
   position: relative;
   text-align: center;
@@ -55,7 +54,7 @@
   width: 100%;
   max-height: 80vh;
   object-fit: contain;
-} */
+}
 
 .qr-image {
   position: absolute;
