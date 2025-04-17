@@ -2,15 +2,15 @@
   display: flex;
   justify-content: space-between;
   padding: 40px;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 160px);
 }
 
 .camera-left {
   width: 40%;
   display: flex;
-  align-items: center;
-  font-size: 2rem;
-  padding: 20px;
+  text-align: center;
+  font-size: 3em;
+  padding: 0px;
 }
 
 .camera-right {
@@ -49,7 +49,14 @@
   font-size: 1.1rem;
   color: #aaa;
 }
-
+.footer{
+  margin-top:auto;
+  text-align: center;
+  color: white;
+  width: 100%;
+  height: 20px;
+  background-color: #00ffcc;
+}
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

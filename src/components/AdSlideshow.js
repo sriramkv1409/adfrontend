@@ -113,9 +113,6 @@ const AdSlideshow = () => {
 
   return (
     <div className="ad-slideshow">
-      <h1 className="header">
-        {showFeedback ? "We'd love your feedback!" : "WATCH OUT FOR THIS"}
-      </h1>
       <div className="slideshow-container">
         {showFeedback ? (
           <div className="feedback-container">
@@ -125,7 +122,9 @@ const AdSlideshow = () => {
         ) : (
           <>
             <a href={ads[currentAdIndex].link} target="_blank" rel="noopener noreferrer">
-              <img src={ads[currentAdIndex].src} alt={`Ad ${currentAdIndex + 1}`} className="slide-image" />
+              <div>
+                <img src={ads[currentAdIndex].src} alt={`Ad ${currentAdIndex + 1}`} className="slide-image" />
+                </div>
             </a>
             {ads[currentAdIndex].qrSrc && (
               <img src={ads[currentAdIndex].qrSrc} alt={`QR for Ad ${currentAdIndex + 1}`} className="qr-image" />

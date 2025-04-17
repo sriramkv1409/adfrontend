@@ -49,8 +49,9 @@ const CameraCapture = () => {
           method: "POST",
           body: formData,
         });
-
+      
         const data = await res.json();
+        console.log(data.age_group,data.gender)
         if (data.age_group && data.gender) {
           navigate("/ads", { state: { ageGroup: data.age_group, gender: data.gender } });
         }
@@ -63,7 +64,7 @@ const CameraCapture = () => {
   return (
     <div className="camera-page">
       <div className="camera-left">
-        <h1>Smart, Ethical, and Engaging</h1>
+        <h1>Smart.<br/>  Ethical. <br/>Engaging...</h1>
       </div>
       <div className="camera-right">
         <video ref={videoRef} autoPlay className="webcam-feed" />
