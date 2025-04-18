@@ -20,7 +20,7 @@ const AdSlideshow = () => {
       if (ageGroup.includes("Teenager")) return "13-19";
       if (ageGroup.includes("Young Adult")) return "20-34";
       if (ageGroup.includes("Middle-aged")) return "35-49";
-      return "50+";
+      return "50plus";
     };
 
     const fetchAds = async () => {
