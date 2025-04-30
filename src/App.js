@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import CameraCapture from './components/CameraCapture';
 import AdSlideshow from './components/AdSlideshow';
 import Navbar from './components/Navbar';
-import Last from './components/Footer';
 import './styles/global.css';
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
         <Route path="/ads" element={<AdSlideshow />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <Last/>
     </div>
   );
 }
