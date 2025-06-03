@@ -7,7 +7,7 @@ const getAgeRange = (ageGroup) => {
   if (ageGroup.includes("Teenager")) return "13-19";
   if (ageGroup.includes("Young Adult")) return "20-34";
   if (ageGroup.includes("Middle-aged")) return "35-49";
-  return "50+";
+  return "50plus";
 };
 
 const validateImage = (url) => {
@@ -31,7 +31,7 @@ const AdSlideshow = () => {
 
   useEffect(() => {
     const fetchAds = async () => {
-      try {
+      try{
         const baseUrl = "https://adgorithmbucket-2025-new.s3.ap-south-1.amazonaws.com";
         const genderFolder = gender === "Woman" ? "Woman" : "Man";
         const ageRange = getAgeRange(ageGroup);
@@ -41,7 +41,7 @@ const AdSlideshow = () => {
         for (let i = 1; i <= 5; i++) {
           for (let format of imageFormats) {
             const adUrl = `${baseUrl}/${genderFolder}/${ageRange}/ad${i}.${format}`;
-            const qrUrl = `${baseUrl}/${genderFolder}/qr/${ageRange}/ad${i}.png`;
+            const qrUrl = `${baseUrl}/${genderFolder}/${ageRange}(qr)/ad${i}.png`;
             const isValidAd = await validateImage(adUrl);
             const isValidQR = await validateImage(qrUrl);
 
